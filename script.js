@@ -17,6 +17,7 @@ function clickEdit() {
 function leaveEdit() {
   this.contentEditable = "false";
   listItems = document.querySelectorAll(".item");
+  console.log(listItems);
 }
 
 function editItemsWrapper() {
@@ -31,9 +32,6 @@ function editItemsWrapper() {
   itemsTextfield.forEach((button) =>
     button.addEventListener("blur", leaveEdit)
   );
-
-  //save changes, i.e. update itemList
-  document.querySelectorAll(".item");
 }
 
 editItemsWrapper();
