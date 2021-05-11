@@ -17,7 +17,6 @@ function clickEdit() {
 function leaveEdit() {
   this.contentEditable = "false";
   listItems = document.querySelectorAll(".item");
-  console.log(listItems);
 }
 
 function editItemsWrapper() {
@@ -28,7 +27,9 @@ function editItemsWrapper() {
   let editButtons = document.querySelectorAll(".edit");
 
   //add event listener and tasks
-  editButtons.forEach((button) => button.addEventListener("click", clickEdit));
+  editButtons.forEach((button, index) =>
+    button.addEventListener("click", clickEdit)
+  );
   itemsTextfield.forEach((button) =>
     button.addEventListener("blur", leaveEdit)
   );
@@ -36,15 +37,14 @@ function editItemsWrapper() {
 
 editItemsWrapper();
 
-// Try out: Add new item
+// // Try out: Add new item
 // const addButton = document.querySelector(".input-button");
 
 // function addElement() {
 //   let mainList = document.querySelector(".item-wrapper");
 //   let newItem = listItems[0].cloneNode(true);
-//   let newInput = document.querySelector(".input-item").innerHTML;
-//          selecting innerHTML from input elements doesn't work
-//   newItem.firstElementChild.innerHTML = "newInput";
+//   let newInput = document.querySelector(".input-item").value;
+//   newItem.firstElementChild.textContent = newInput;
 //   mainList.append(newItem);
 //   editItemsWrapper();
 // }
