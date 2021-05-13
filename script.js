@@ -74,6 +74,53 @@ function editItemsWrapper() {
   itemsTextfield.forEach((button) =>
     button.addEventListener("blur", leaveEdit)
   );
+
+  writeLocalStorage();
 }
 
 editItemsWrapper();
+
+// remove closest article to the button clicked
+function deleteClick() {
+  const deleteButtons = document.querySelectorAll(".delete");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      this.closest("article").remove();
+    });
+  });
+}
+
+deleteClick();
+
+// ********************** Alin - the Check Button
+
+// function checkButton() {
+const checkButtons = document.querySelectorAll(".check");
+
+const changeBackground = (event) => {
+  const itemTextfield = event.currentTarget.closest("article").children[0];
+  itemTextfield.classList.toggle("checked-item");
+};
+
+checkButtons.forEach((button) =>
+  button.addEventListener("click", changeBackground)
+);
+// }
+
+// **** New Comment
+
+// 2. Added a newer Comment
+
+// ************************** end of Alin
+
+// Local storage
+// functionality: store session information, restore to do list after browser refresh
+// main function 1: write local storage on each userinput (add,check,delete)
+// main function 2: load localStorage on each browser refresh
+
+// Main function 1: write local storage on userInput
+
+function writeLocalStorage() {
+  const item = document.querySelector(".item");
+  console.log(item);
+}
