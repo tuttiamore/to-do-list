@@ -30,6 +30,30 @@ h1 {
   align-items: center;
 }
 
+/* The popup */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: -5px;
+}
+
+.popup .popuptext {
+  font-size: 0.7rem;
+  visibility: hidden;
+  color: red;
+  text-align: center;
+  border: 1px solid red;
+  border-radius: 6px;
+  padding: 8px 6px;
+  justify-self: start;
+}
+
+.popup .show {
+  visibility: visible;
+}
+
 .input-wrapper {
   display: flex;
   align-items: center;
