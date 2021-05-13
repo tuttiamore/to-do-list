@@ -22,6 +22,7 @@ function createAndAppendNewListItem() {
 
   itemWrapper.insertAdjacentHTML("afterbegin", itemTemplate);
   editItemsWrapper();
+  deleteClick();
 }
 
 let addButton = document.querySelector("#input-button");
@@ -77,3 +78,15 @@ function editItemsWrapper() {
 }
 
 editItemsWrapper();
+
+// remove closest article to the button clicked
+function deleteClick() {
+  const deleteButtons = document.querySelectorAll(".delete");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      this.closest("article").remove();
+    });
+  });
+}
+
+deleteClick();
