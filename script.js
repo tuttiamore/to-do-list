@@ -78,6 +78,18 @@ function editItemsWrapper() {
 
 editItemsWrapper();
 
+// remove closest article to the button clicked
+function deleteClick() {
+  const deleteButtons = document.querySelectorAll(".delete");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      this.closest("article").remove();
+    });
+  });
+}
+
+deleteClick();
+
 // ********************** Alin - the Check Button
 
 // function checkButton() {
