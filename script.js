@@ -27,6 +27,7 @@ function createAndAppendNewListItem() {
 
   itemWrapper.insertAdjacentHTML("afterbegin", itemTemplate);
   editItemsWrapper();
+  deleteClick();
 }
 // function to show popup for 0.7 seconds
 function popupAlert() {
