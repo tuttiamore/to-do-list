@@ -1,9 +1,14 @@
 const itemWrapper = document.querySelector(".item-wrapper");
 
+const inputField = document.querySelector(".input-item");
+
+const addButton = document.querySelector("#input-button");
+
+const inputWrapper = document.querySelector(".input-wrapper");
+
 // create new article with the user inserted item and display it on the page
 function createAndAppendNewListItem() {
   let newAddedItem = document.querySelector(".input-item").value;
-
   const itemTemplate = `
   <article class="item">
   <div class="item-textfield">${newAddedItem}</div>
@@ -23,21 +28,37 @@ function createAndAppendNewListItem() {
   itemWrapper.insertAdjacentHTML("afterbegin", itemTemplate);
   editItemsWrapper();
 }
+// function to show popup for 0.7 seconds
+function popupAlert() {
+  let popup = document.getElementById("myPopup");
+  popup.classList.add("show");
+  setTimeout(function () {
+    popup.classList.remove("show");
+  }, 700);
+}
 
-let addButton = document.querySelector("#input-button");
-
-// trigger function on click
-addButton.addEventListener("click", createAndAppendNewListItem);
-
-let inputField = document.querySelector(".input-item");
-
-const onEnter = (event) => {
+// function to add list items on enter, if item field is empty trigger popup
+function addItemOnEnterKey(event) {
   if (event.key === "Enter") {
+    if (!event.target.closest("input").value) {
+      popupAlert();
+    } else {
+      createAndAppendNewListItem();
+    }
+  }
+}
+
+// add new list itemon button click, if item field is empty trigger popup function
+addButton.addEventListener("click", function () {
+  if (!this.previousElementSibling.value) {
+    popupAlert();
+  } else {
     createAndAppendNewListItem();
   }
-};
-// trigger function on enter
-inputField.addEventListener("keydown", onEnter);
+});
+
+// add new list item on enterKey, if item field is empty trigger popup function
+inputField.addEventListener("keydown", addItemOnEnterKey);
 
 // Edit function
 // Steps involved:
