@@ -100,6 +100,16 @@ h1 {
   /* margin: 0.2rem; */
 }
 
+/* **********************Alin - Check Button, the new class that is added to the selected fields when the Check button is pressed */
+
+.checked-item {
+  background-color: darkgray;
+  color: lightslategray;
+  text-decoration: line-through;
+}
+
+/* ***************************** end of Alin */
+
 .fas,
 .far {
   font-size: 1.5rem;
