@@ -21,6 +21,8 @@ function createAndAppendNewListItem() {
   </article>`;
 
   itemWrapper.insertAdjacentHTML("afterbegin", itemTemplate);
+
+  // Assign edit functionality to newly created items
   editItemsWrapper();
 }
 
@@ -57,7 +59,9 @@ function clickEdit() {
 // function for saving changes: make textfield not editable and update array
 function leaveEdit() {
   this.contentEditable = "false";
-  listItems = document.querySelectorAll(".item");
+
+  // Write local storage
+  writeLocalStorage();
 }
 
 function editItemsWrapper() {
@@ -68,9 +72,7 @@ function editItemsWrapper() {
   let editButtons = document.querySelectorAll(".edit");
 
   //add event listener and tasks
-  editButtons.forEach((button, index) =>
-    button.addEventListener("click", clickEdit)
-  );
+  editButtons.forEach((button) => button.addEventListener("click", clickEdit));
   itemsTextfield.forEach((button) =>
     button.addEventListener("blur", leaveEdit)
   );
@@ -110,3 +112,52 @@ checkButtons.forEach((button) =>
 // 2. Added a newer Comment
 
 // ************************** end of Alin
+
+//////////////////////////////
+// Local storage
+//////////////////////////////
+
+// functionality: store session information, restore to do list after browser refresh
+// main function 1: write local storage on each userinput (add,check,delete)
+// main function 2: load localStorage on each browser refresh
+
+// Main function 1: write local storage on userInput
+
+function writeLocalStorage() {
+  // clear localStorage to avoid conflicts with existing items
+  localStorage.clear();
+
+  // grab all list items
+  const items = document.querySelectorAll(".item");
+
+  // write each list item's HTML to localStorage
+  items.forEach((item, index) => {
+    localStorage.setItem(`item${index}`, `${item.outerHTML}`);
+  });
+}
+
+function loadLocalStorage() {
+  // grab container for list items
+  const itemWrapper = document.querySelector(".item-wrapper");
+
+  // reset inner HTML of container
+  itemWrapper.innerHTML = "";
+
+  // populate container with list items from localStorage
+  for (let item = 0; item < localStorage.length; item++) {
+    const key = localStorage.key(item);
+    const itemHTML = localStorage.getItem(key);
+    itemWrapper.insertAdjacentHTML("beforeend", itemHTML);
+  }
+  editItemsWrapper();
+  deleteClick();
+}
+
+// reset local storage
+const resetStorageButton = document.querySelector(".reset-local-storage");
+resetStorageButton.addEventListener("click", () => {
+  localStorage.clear();
+});
+
+loadLocalStorage();
+window.addEventListener("beforeunload", writeLocalStorage);
