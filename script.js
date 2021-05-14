@@ -29,6 +29,7 @@ function createAndAppendNewListItem() {
 
   // Assign edit functionality to newly created items
   editItemsWrapper();
+  checkClick();
   deleteClick();
 }
 // function to show popup for 0.7 seconds
@@ -117,18 +118,27 @@ deleteClick();
 // ********************** Alin - the Check Button
 
 // function checkButton() {
-const checkButtons = document.querySelectorAll(".check");
+// const checkButtons = document.querySelectorAll(".check");
 
-const changeBackground = (event) => {
-  const itemTextfield = event.currentTarget.closest("article").children[0];
-  itemTextfield.classList.toggle("checked-item");
-};
+// const changeBackground = (event) => {
+//   const itemTextfield = event.currentTarget.closest("article").children[0];
+//   itemTextfield.classList.toggle("checked-item");
+// };
 
-checkButtons.forEach((button) =>
-  button.addEventListener("click", changeBackground)
-);
-// }
+// checkButtons.forEach((button) =>
+//   button.addEventListener("click", changeBackground)
+// );
 
+function checkClick() {
+  const checkButtons = document.querySelectorAll(".check");
+  checkButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const itemTextfield = this.closest("article").children[0];
+      itemTextfield.classList.toggle("checked-item");
+    });
+  });
+}
+checkClick();
 // **** New Comment
 
 // 2. Added a newer Comment
@@ -172,6 +182,7 @@ function loadLocalStorage() {
     itemWrapper.insertAdjacentHTML("beforeend", itemHTML);
   }
   editItemsWrapper();
+  checkClick();
   deleteClick();
 }
 
