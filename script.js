@@ -1,68 +1,37 @@
-const itemWrapper = document.querySelector(".item-wrapper");
+// implement add functionality CREATE OPERATION
 
-const inputField = document.querySelector(".input-item");
+// 1 add text to the input
+// 2 click the plus button to add
+// 3 the new item gets added to our list in the webpage
+
+const input = document.querySelector("input");
 
 const addButton = document.querySelector("#input-button");
+addButton.addEventListener("click", addElement) 
 
-const inputWrapper = document.querySelector(".input-wrapper");
 
-// create new article with the user inserted item and display it on the page
-function createAndAppendNewListItem() {
-  let newAddedItem = document.querySelector(".input-item").value;
-  const itemTemplate = `
-  <article class="item">
-  <div class="item-textfield">${newAddedItem}</div>
-  <div class="button-wrapper">
-    <button class="edit item-button">
-      <i class="far fa-edit"></i>
-    </button>
-    <button class="check item-button">
-      <i class="far fa-check-square"></i>
-    </button>
-    <button class="delete item-button">
-      <i class="far fa-trash-alt"></i>
-  </button>
-  </div>
-  </article>`;
-
-  itemWrapper.insertAdjacentHTML("afterbegin", itemTemplate);
-
-  // Assign edit functionality to newly created items
-  editItemsWrapper();
-  checkClick();
-  deleteClick();
-}
-// function to show popup for 0.7 seconds
-function popupAlert() {
-  let popup = document.getElementById("myPopup");
-  popup.classList.add("show");
-  setTimeout(function () {
-    popup.classList.remove("show");
-  }, 700);
+function addElement() {
+  const addedItem = input.value;
+  console.log(addedItem);
+  const newItemTemplate = `<article class="item">
+      <div class="item-textfield">${addedItem}</div>
+      <div class="button-wrapper">
+        <button class="edit item-button">
+          <i class="far fa-edit"></i>
+        </button>
+        <button class="check item-button">
+          <i class="far fa-check-square"></i>
+        </button>
+        <button class="delete item-button">
+          <i class="far fa-trash-alt"></i>
+        </button>
+      </div>
+      </article>`;
+      console.log(newItemTemplate);
+const parentDiv = document.querySelector('.item-wrapper');
+parentDiv.insertAdjacentHTML('afterend', newItemTemplate);
 }
 
-// function to add list items on enter, if item field is empty trigger popup
-function addItemOnEnterKey(event) {
-  if (event.key === "Enter") {
-    if (!event.target.closest("input").value) {
-      popupAlert();
-    } else {
-      createAndAppendNewListItem();
-    }
-  }
-}
-
-// add new list itemon button click, if item field is empty trigger popup function
-addButton.addEventListener("click", function () {
-  if (!this.previousElementSibling.value) {
-    popupAlert();
-  } else {
-    createAndAppendNewListItem();
-  }
-});
-
-// add new list item on enterKey, if item field is empty trigger popup function
-inputField.addEventListener("keydown", addItemOnEnterKey);
 
 // Edit function
 // Steps involved:
