@@ -33,6 +33,7 @@ function createAndAppendNewListItem() {
   editItemsWrapper();
   checkClick();
   deleteClick();
+  writeLocalStorage();
 }
 
 // function to show popup for 0.7 seconds
@@ -155,12 +156,11 @@ function writeLocalStorage() {
   localStorage.clear();
 
   //   // grab all list items
-  const items = document.querySelectorAll(".item");
+  const items = document.querySelector(".item-wrapper");
 
   //   // write each list item's HTML to localStorage
-  items.forEach((item, index) => {
-    localStorage.setItem(`item${index}`, `${item.outerHTML}`);
-  });
+  localStorage.setItem("items", `${items.innerHTML}`);
+  console.log(localStorage);
 }
 
 function loadLocalStorage() {
@@ -171,11 +171,9 @@ function loadLocalStorage() {
   itemWrapper.innerHTML = "";
 
   //   // populate container with list items from localStorage
-  for (let item = 0; item < localStorage.length; item++) {
-    const key = localStorage.key(item);
-    const itemHTML = localStorage.getItem(key);
-    itemWrapper.insertAdjacentHTML("beforeend", itemHTML);
-  }
+  const itemHTML = localStorage.getItem("items");
+  itemWrapper.innerHTML = itemHTML;
+
   editItemsWrapper();
   checkClick();
   deleteClick();
