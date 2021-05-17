@@ -6,12 +6,14 @@ const addButton = document.querySelector("#input-button");
 
 const inputWrapper = document.querySelector(".input-wrapper");
 
+const submitForm = document.forms[0];
+
 // create new article with the user inserted item and display it on the page
 function createAndAppendNewListItem() {
-  let newAddedItem = document.querySelector(".input-item").value;
+  const inputTextValue = submitForm.querySelector("input").value;
   const itemTemplate = `
   <article class="item">
-  <div class="item-textfield">${newAddedItem}</div>
+  <div class="item-textfield">${inputTextValue}</div>
   <div class="button-wrapper">
     <button class="edit item-button">
       <i class="far fa-edit"></i>
@@ -41,28 +43,19 @@ function popupAlert() {
   }, 700);
 }
 
-// function to add list items on enter, if item field is empty trigger popup
-function addItemOnEnterKey(event) {
-  if (event.key === "Enter") {
-    if (!event.target.closest("input").value) {
-      popupAlert();
-    } else {
-      createAndAppendNewListItem();
-    }
-  }
-}
-
-// add new list itemon button click, if item field is empty trigger popup function
-addButton.addEventListener("click", function () {
-  if (!this.previousElementSibling.value) {
+// add new list item to the page on submit event then reset input field, if item field is empty trigger popup function
+const handlerSubmit = (event) => {
+  const inputTextValue = submitForm.querySelector("input").value;
+  event.preventDefault();
+  if (!inputTextValue) {
     popupAlert();
   } else {
     createAndAppendNewListItem();
+    submitForm.reset();
   }
-});
+};
 
-// add new list item on enterKey, if item field is empty trigger popup function
-inputField.addEventListener("keydown", addItemOnEnterKey);
+submitForm.addEventListener("submit", handlerSubmit);
 
 // Edit function
 // Steps involved:
