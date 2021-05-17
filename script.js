@@ -34,6 +34,7 @@ function createAndAppendNewListItem() {
   checkClick();
   deleteClick();
 }
+
 // function to show popup for 0.7 seconds
 function popupAlert() {
   let popup = document.getElementById("myPopup");
@@ -100,9 +101,9 @@ editItemsWrapper();
 function deleteClick() {
   const deleteButtons = document.querySelectorAll(".delete");
   deleteButtons.forEach((button) => {
-    button.addEventListener("click", function () {
+    button.onclick = function () {
       this.closest("article").remove();
-    });
+    };
   });
 }
 
@@ -125,10 +126,11 @@ deleteClick();
 function checkClick() {
   const checkButtons = document.querySelectorAll(".check");
   checkButtons.forEach((button) => {
-    button.addEventListener("click", function () {
+    button.onclick = function () {
       const itemTextfield = this.closest("article").children[0];
       itemTextfield.classList.toggle("checked-item");
-    });
+      console.log(itemTextfield);
+    };
   });
 }
 checkClick();
@@ -146,29 +148,29 @@ checkClick();
 // main function 1: write local storage on each userinput (add,check,delete)
 // main function 2: load localStorage on each browser refresh
 
-// Main function 1: write local storage on userInput
+// // Main function 1: write local storage on userInput
 
 function writeLocalStorage() {
   // clear localStorage to avoid conflicts with existing items
   localStorage.clear();
 
-  // grab all list items
+  //   // grab all list items
   const items = document.querySelectorAll(".item");
 
-  // write each list item's HTML to localStorage
+  //   // write each list item's HTML to localStorage
   items.forEach((item, index) => {
     localStorage.setItem(`item${index}`, `${item.outerHTML}`);
   });
 }
 
 function loadLocalStorage() {
-  // grab container for list items
+  //   // grab container for list items
   const itemWrapper = document.querySelector(".item-wrapper");
 
-  // reset inner HTML of container
+  //   // reset inner HTML of container
   itemWrapper.innerHTML = "";
 
-  // populate container with list items from localStorage
+  //   // populate container with list items from localStorage
   for (let item = 0; item < localStorage.length; item++) {
     const key = localStorage.key(item);
     const itemHTML = localStorage.getItem(key);
