@@ -1,3 +1,5 @@
+loadLocalStorage();
+
 const itemWrapper = document.querySelector(".item-wrapper");
 
 const inputField = document.querySelector(".input-item");
@@ -28,12 +30,11 @@ function createAndAppendNewListItem() {
   </article>`;
 
   itemWrapper.insertAdjacentHTML("afterbegin", itemTemplate);
-
+  itemTransition(itemWrapper.firstElementChild);
   // Assign edit functionality to newly created items
   editItemsWrapper();
   checkClick();
   deleteClick();
-  writeLocalStorage();
 }
 
 // function to show popup for 0.7 seconds
@@ -79,7 +80,7 @@ function leaveEdit() {
   this.contentEditable = "false";
 
   // Write local storage
-  writeLocalStorage();
+  // writeLocalStorage();
 }
 
 function editItemsWrapper() {
@@ -160,17 +161,16 @@ function writeLocalStorage() {
 
   //   // write each list item's HTML to localStorage
   localStorage.setItem("items", `${items.innerHTML}`);
-  console.log(localStorage);
 }
 
 function loadLocalStorage() {
   //   // grab container for list items
   const itemWrapper = document.querySelector(".item-wrapper");
 
-  //   // reset inner HTML of container
+  // reset inner HTML of container
   itemWrapper.innerHTML = "";
 
-  //   // populate container with list items from localStorage
+  // populate container with list items from localStorage
   const itemHTML = localStorage.getItem("items");
   itemWrapper.innerHTML = itemHTML;
 
@@ -183,7 +183,16 @@ function loadLocalStorage() {
 const resetStorageButton = document.querySelector(".reset-local-storage");
 resetStorageButton.addEventListener("click", () => {
   localStorage.clear();
+  loadLocalStorage();
 });
 
-loadLocalStorage();
+/////////////////////////////
+//Add animation on appearance
+/////////////////////////////
+
+// toogle class visible for smooth add/delete effect
+function itemTransition(element) {
+  setTimeout(() => element.classList.toggle("item-visible"), 1);
+}
+
 window.addEventListener("beforeunload", writeLocalStorage);
