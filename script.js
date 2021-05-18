@@ -180,11 +180,11 @@ function loadLocalStorage() {
 }
 
 // reset local storage
-// const resetStorageButton = document.querySelector(".reset-local-storage");
-// resetStorageButton.addEventListener("click", () => {
-//   localStorage.clear();
-//   loadLocalStorage();
-// });
+const resetStorageButton = document.querySelector(".reset-local-storage");
+resetStorageButton.addEventListener("click", () => {
+  localStorage.clear();
+  loadLocalStorage();
+});
 
 /////////////////////////////
 //Add animation on appearance
